@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Classes - KNZ Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'navy': '#1a365d',
+                        'coral': '#ff6b6b',
+                        'sage': '#68d391',
+                        'neutral': '#f7fafc',
+                        'charcoal': '#2d3748'
+                    },
+                    fontFamily: {
+                        'display': ['Playfair Display', 'serif'],
+                        'body': ['Inter', 'sans-serif'],
+                        'accent': ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        .filter-active {
+            background-color: #ff6b6b !important;
+            color: white !important;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body class="font-body bg-neutral text-charcoal">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-md z-50 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <img src="resources/logo-knz.png" alt="KNZ Academy" class="h-10 w-auto">
+                    <span class="font-display text-xl font-bold text-navy">KNZ Academy</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-charcoal hover:text-coral transition-colors">Home</a>
+                    <a href="classes.html" class="text-navy font-medium border-b-2 border-coral pb-1">Classes</a>
+                    <a href="teachers.html" class="text-charcoal hover:text-coral transition-colors">Teachers</a>
+                    <a href="about.html" class="text-charcoal hover:text-coral transition-colors">About</a>
+                </div>
+                <button class="bg-coral text-white px-6 py-2 rounded-full font-accent font-medium hover:bg-red-500 transition-colors">
+                    Book Now
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-navy to-blue-900 text-white pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="font-display text-5xl font-bold mb-6">Our Classes</h1>
+                <p class="text-xl text-blue-100 max-w-3xl mx-auto">
+                    Discover our comprehensive range of subjects designed to help students excel academically. 
+                    From foundational concepts to advanced topics, we have the perfect class for every learner.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="py-8 bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+                <div class="flex flex-wrap gap-2">
+                    <button class="filter-btn filter-active px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-colors" data-filter="all">
+                        All Subjects
+                    </button>
+                    <button class="filter-btn px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-colors" data-filter="math">
+                        Mathematics
+                    </button>
+                    <button class="filter-btn px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-colors" data-filter="science">
+                        Science
+                    </button>
+                    <button class="filter-btn px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-colors" data-filter="english">
+                        English
+                    </button>
+                    <button class="filter-btn px-4 py-2 rounded-full border border-gray-300 text-sm font-medium transition-colors" data-filter="computer">
+                        Computer Science
+                    </button>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-coral focus:border-transparent">
+                        <option>All Grade Levels</option>
+                        <option>Elementary (K-5)</option>
+                        <option>Middle School (6-8)</option>
+                        <option>High School (9-12)</option>
+                    </select>
+                    <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-coral focus:border-transparent">
+                        <option>Sort by: Popular</option>
+                        <option>Sort by: Price</option>
+                        <option>Sort by: Rating</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Classes Grid -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div id="classes-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Mathematics Classes -->
+                <div class="class-card card-hover bg-white rounded-xl shadow-lg overflow-hidden" data-category="math">
+                    <img src="resources/class-math.jpg" alt="Elementary Mathematics" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-coral/10 text-coral px-3 py-1 rounded-full text-sm font-medium">Mathematics</span>
+                            <div class="flex items-center text-yellow-400">
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                <span class="ml-1 text-sm text-gray-600">4.9</span>
+                            </div>
+                        </div>
+                        <h3 class="font-display text-xl font-semibold text-navy mb-2">Elementary Mathematics</h3>
+                        <p class="text-gray-600 mb-4">Build strong foundations in arithmetic, geometry, and problem-solving skills.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="text-sm text-gray-500">
+                                <div>📚 Grades K-5</div>
+                                <div>⏱️ 45 min sessions</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-2xl font-bold text-coral">$45</div>
+                                <div class="text-sm text-gray-500">per session</div>
+                            </div>
+                        </div>
+                        <button class="w-full bg-coral text-white py-3 rounded-lg font-accent font-medium hover:bg-red-500 transition-colors" onclick="openClassModal('elementary-math')">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+
+                <div class="class-card card-hover bg-white rounded-xl shadow-lg overflow-hidden" data-category="math">
+                    <img src="resources/class-math.jpg" alt="Algebra & Geometry" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-coral/10 text-coral px-3 py-1 rounded-full text-sm font-medium">Mathematics</span>
+                            <div class="flex items-center text-yellow-400">
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                <span class="ml-1 text-sm text-gray-600">4.8</span>
+                            </div>
+                        </div>
+                        <h3 class="font-display text-xl font-semibold text-navy mb-2">Algebra & Geometry</h3>
+                        <p class="text-gray-600 mb-4">Master algebraic concepts and geometric principles for middle school success.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="text-sm text-gray-500">
+                                <div>📚 Grades 6-8</div>
+                                <div>⏱️ 60 min sessions</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-2xl font-bold text-coral">$55</div>
+                                <div class="text-sm text-gray-500">per session</div>
+                            </div>
+                        </div>
+                        <button class="w-full bg-coral text-white py-3 rounded-lg font-accent font-medium hover:bg-red-500 transition-colors" onclick="openClassModal('algebra-geometry')">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+
+                <div class="class-card card-hover bg-white rounded-xl shadow-lg overflow-hidden" data-category="math">
+                    <img src="resources/class-math.jpg" alt="Calculus & Advanced Math" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-coral/10 text-coral px-3 py-1 rounded-full text-sm font-medium">Mathematics</span>
+                            <div class="flex items-center text-yellow-400">
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                <span class="ml-1 text-sm text-gray-600">4.9</span>
+                            </div>
+                        </div>
+                        <h3 class="font-display text-xl font-semibold text-navy mb-2">Calculus & Advanced Math</h3>
+                        <p class="text-gray-600 mb-4">Advanced mathematics including calculus, statistics, and AP preparation.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="text-sm text-gray-500">
+                                <div>📚 Grades 9-12</div>
+                                <div>⏱️ 90 min sessions</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-2xl font-bold text-coral">$75</div>
+                                <div class="text-sm text-gray-500">per session</div>
+                            </div>
+                        </div>
+                        <button class="w-full bg-coral text-white py-3 rounded-lg font-accent font-medium hover:bg-red-500 transition-colors" onclick="openClassModal('calculus')">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Science Classes -->
+                <div class="class-card card-hover bg-white rounded-xl shadow-lg overflow-hidden" data-category="science">
+                    <img src="resources/class-science.jpg" alt="General Science" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-sage/10 text-sage px-3 py-1 rounded-full text-sm font-medium">Science</span>
+                            <div class="flex items-center text-yellow-400">
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                <span class="ml-1 text-sm text-gray-600">4.7</span>
+                            </div>
+                        </div>
+                        <h3 class="font-display text-xl font-semibold text-navy mb-2">General Science</h3>
+                        <p class="text-gray-600 mb-4">Explore the wonders of science through hands-on experiments and discovery.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="text-sm text-gray-500">
+                                <div>📚 Grades K-5</div>
+                                <div>⏱️ 60 min sessions</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-2xl font-bold text-coral">$50</div>
+                                <div class="text-sm text-gray-500">per session</div>
+                            </div>
+                        </div>
+                        <button class="w-full bg-coral text-white py-3 rounded-lg font-accent font-medium hover:bg-red-500 transition-colors" onclick="openClassModal('general-science')">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+
+                <div class="class-card card-hover bg-white rounded-xl shadow-lg overflow-hidden" data-category="science">
+                    <img src="resources/class-science.jpg" alt="Biology & Chemistry" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-sage/10 text-sage px-3 py-1 rounded-full text-sm font-medium">Science</span>
+                            <div class="flex items-center text-yellow-400">
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                <span class="ml-1 text-sm text-gray-600">4.8</span>
+                            </div>
+                        </div>
+                        <h3 class="font-display text-xl font-semibold text-navy mb-2">Biology & Chemistry</h3>
+                        <p class="text-gray-600 mb-4">Dive deep into life sciences and chemical reactions with lab work included.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="text-sm text-gray-500">
+                                <div>📚 Grades 6-12</div>
+                                <div>⏱️ 75 min sessions</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-2xl font-bold text-coral">$65</div>
+                                <div class="text-sm text-gray-500">per session</div>
+                            </div>
+                        </div>
+                        <button class="w-full bg-coral text-white py-3 rounded-lg font-accent font-medium hover:bg-red-500 transition-colors" onclick="openClassModal('biology-chemistry')">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+
+                <div class="class-card card-hover bg-white rounded-xl shadow-lg overflow-hidden" data-category="science">
+                    <img src="resources/class-science.jpg" alt="Physics & Engineering" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-sage/10 text-sage px-3 py-1 rounded-full text-sm font-medium">Science</span>
+                            <div class="flex items-center text-yellow-400">
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                <span class="ml-1 text-sm text-gray-600">4.9</span>
+                            </div>
+                        </div>
+                        <h3 class="font-display text-xl font-semibold text-navy mb-2">Physics & Engineering</h3>
+                        <p class="text-gray-600 mb-4">Understand the laws of motion, energy, and engineering principles.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="text-sm text-gray-500">
+                                <div>📚 Grades 9-12</div>
+                                <div>⏱️ 90 min sessions</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-2xl font-bold text-coral">$70</div>
+                                <div class="text-sm text-gray-500">per session</div>
+                            </div>
+                        </div>
+                        <button class="w-full bg-coral text-white py-3 rounded-lg font-accent font-medium hover:bg-red-500 transition-colors" onclick="openClassModal('physics-engineering')">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+
+                <!-- English Classes -->
+                <div class="class-card card-hover bg-white rounded-xl shadow-lg overflow-hidden" data-category="english">
+                    <img src="resources/teacher-3.jpg" alt="Reading & Writing" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-navy/10 text-navy px-3 py-1 rounded-full text-sm font-medium">English</span>
+                            <div class="flex items-center text-yellow-400">
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                <span class="ml-1 text-sm text-gray-600">4.8</span>
+                            </div>
+                        </div>
+                        <h3 class="font-display text-xl font-semibold text-navy mb-2">Reading & Writing</h3>
+                        <p class="text-gray-600 mb-4">Develop strong literacy skills and creative writing abilities.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="text-sm text-gray-500">
+                                <div>📚 Grades K-8</div>
+                                <div>⏱️ 60 min sessions</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-2xl font-bold text-coral">$48</div>
+                                <div class="text-sm text-gray-500">per session</div>
+                            </div>
+                        </div>
+                        <button class="w-full bg-coral text-white py-3 rounded-lg font-accent font-medium hover:bg-red-500 transition-colors" onclick="openClassModal('reading-writing')">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+
+                <div class="class-card card-hover bg-white rounded-xl shadow-lg overflow-hidden" data-category="english">
+                    <img src="resources/teacher-3.jpg" alt="Literature & Composition" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-navy/10 text-navy px-3 py-1 rounded-full text-sm font-medium">English</span>
+                            <div class="flex items-center text-yellow-400">
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                <span class="ml-1 text-sm text-gray-600">4.9</span>
+                            </div>
+                        </div>
+                        <h3 class="font-display text-xl font-semibold text-navy mb-2">Literature & Composition</h3>
+                        <p class="text-gray-600 mb-4">Analyze classic literature and master academic writing skills.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="text-sm text-gray-500">
+                                <div>📚 Grades 9-12</div>
+                                <div>⏱️ 75 min sessions</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-2xl font-bold text-coral">$58</div>
+                                <div class="text-sm text-gray-500">per session</div>
+                            </div>
+                        </div>
+                        <button class="w-full bg-coral text-white py-3 rounded-lg font-accent font-medium hover:bg-red-500 transition-colors" onclick="openClassModal('literature-composition')">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Computer Science Classes -->
+                <div class="class-card card-hover bg-white rounded-xl shadow-lg overflow-hidden" data-category="computer">
+                    <img src="resources/class-computer.jpg" alt="Programming Fundamentals" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="bg-coral/10 text-coral px-3 py-1 rounded-full text-sm font-medium">Computer Science</span>
+                            <div class="flex items-center text-yellow-400">
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                <span class="ml-1 text-sm text-gray-600">4.8</span>
+                            </div>
+                        </div>
+                        <h3 class="font-display text-xl font-semibold text-navy mb-2">Programming Fundamentals</h3>
+                        <p class="text-gray-600 mb-4">Learn Python, JavaScript, and computational thinking skills.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="text-sm text-gray-500">
+                                <div>📚 Grades 6-12</div>
+                                <div>⏱️ 75 min sessions</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-2xl font-bold text-coral">$68</div>
+                                <div class="text-sm text-gray-500">per session</div>
+                            </div>
+                        </div>
+                        <button class="w-full bg-coral text-white py-3 rounded-lg font-accent font-medium hover:bg-red-500 transition-colors" onclick="openClassModal('programming')">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Class Detail Modal -->
+    <div id="class-modal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="modal-title" class="font-display text-2xl font-bold text-navy"></h2>
+                <button onclick="closeClassModal()" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div id="modal-content">
+                <!-- Content will be dynamically loaded -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-navy text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="col-span-2">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <img src="resources/logo-knz.png" alt="KNZ Academy" class="h-10 w-auto">
+                        <span class="font-display text-xl font-bold">KNZ Academy</span>
+                    </div>
+                    <p class="text-gray-300 mb-4">Empowering students to reach their full potential through personalized education and expert guidance.</p>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="index.html" class="hover:text-coral transition-colors">Home</a></li>
+                        <li><a href="teachers.html" class="hover:text-coral transition-colors">Our Teachers</a></li>
+                        <li><a href="about.html" class="hover:text-coral transition-colors">About Us</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-4">Contact Info</h3>
+                    <div class="space-y-2 text-gray-300">
+                        <div>📧 info@knzacademy.com</div>
+                        <div>📞 (555) 123-4567</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                <p>&copy; 2024 KNZ Academy. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Class filtering functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const classCards = document.querySelectorAll('.class-card');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Update active filter button
+                    filterButtons.forEach(btn => btn.classList.remove('filter-active'));
+                    this.classList.add('filter-active');
+
+                    const filter = this.dataset.filter;
+                    
+                    // Filter cards
+                    classCards.forEach(card => {
+                        if (filter === 'all' || card.dataset.category === filter) {
+                            card.style.display = 'block';
+                            anime({
+                                targets: card,
+                                scale: [0.8, 1],
+                                opacity: [0, 1],
+                                duration: 400,
+                                easing: 'easeOutBack'
+                            });
+                        } else {
+                            anime({
+                                targets: card,
+                                scale: [1, 0.8],
+                                opacity: [1, 0],
+                                duration: 200,
+                                easing: 'easeInBack',
+                                complete: () => {
+                                    card.style.display = 'none';
+                                }
+                            });
+                        }
+                    });
+                });
+            });
+        });
+
+        // Modal functionality
+        function openClassModal(classId) {
+            const modal = document.getElementById('class-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalContent = document.getElementById('modal-content');
+
+            const classData = {
+                'elementary-math': {
+                    title: 'Elementary Mathematics',
+                    description: 'Our elementary mathematics program focuses on building strong foundational skills in arithmetic, basic geometry, and problem-solving. Students learn through interactive activities and real-world applications.',
+                    curriculum: [
+                        'Number sense and place value',
+                        'Addition, subtraction, multiplication, and division',
+                        'Fractions and decimals',
+                        'Basic geometry and shapes',
+                        'Measurement and data analysis',
+                        'Problem-solving strategies'
+                    ],
+                    schedule: 'Monday - Friday, 3:00 PM - 3:45 PM',
+                    instructor: 'Ms. Sarah Johnson, M.Ed.',
+                    price: '$45 per session'
+                },
+                'algebra-geometry': {
+                    title: 'Algebra & Geometry',
+                    description: 'Master the transition from arithmetic to algebraic thinking. This course covers linear equations, geometric principles, and prepares students for advanced mathematics.',
+                    curriculum: [
+                        'Linear equations and inequalities',
+                        'Systems of equations',
+                        'Polynomials and factoring',
+                        'Quadratic functions',
+                        'Geometric proofs',
+                        'Area, volume, and trigonometry'
+                    ],
+                    schedule: 'Tuesday & Thursday, 4:00 PM - 5:00 PM',
+                    instructor: 'Mr. David Chen, M.S. Mathematics',
+                    price: '$55 per session'
+                },
+                'programming': {
+                    title: 'Programming Fundamentals',
+                    description: 'Learn the basics of computer programming using Python and JavaScript. Students develop problem-solving skills and create their own projects.',
+                    curriculum: [
+                        'Python syntax and data types',
+                        'Variables and functions',
+                        'Loops and conditional statements',
+                        'Object-oriented programming basics',
+                        'Web development with JavaScript',
+                        'Project-based learning'
+                    ],
+                    schedule: 'Monday & Wednesday, 5:30 PM - 6:45 PM',
+                    instructor: 'Ms. Alex Rodriguez, B.S. Computer Science',
+                    price: '$68 per session'
+                }
+            };
+
+            const data = classData[classId] || classData['elementary-math'];
+            
+            modalTitle.textContent = data.title;
+            modalContent.innerHTML = `
+                <div class="space-y-6">
+                    <p class="text-gray-600">${data.description}</p>
+                    
+                    <div>
+                        <h3 class="font-semibold text-navy mb-3">Curriculum Highlights</h3>
+                        <ul class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            ${data.curriculum.map(item => `<li class="flex items-center"><span class="text-sage mr-2">✓</span>${item}</li>`).join('')}
+                        </ul>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <h3 class="font-semibold text-navy mb-2">Schedule</h3>
+                            <p class="text-gray-600">${data.schedule}</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-navy mb-2">Instructor</h3>
+                            <p class="text-gray-600">${data.instructor}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <div class="flex justify-between items-center">
+                            <span class="font-semibold text-navy">Price:</span>
+                            <span class="text-2xl font-bold text-coral">${data.price}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <button class="flex-1 bg-coral text-white py-3 rounded-lg font-accent font-medium hover:bg-red-500 transition-colors" onclick="bookClass('${classId}')">
+                            Book This Class
+                        </button>
+                        <button class="flex-1 border-2 border-navy text-navy py-3 rounded-lg font-accent font-medium hover:bg-navy hover:text-white transition-colors" onclick="closeClassModal()">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            modal.classList.add('show');
+            
+            // Animate modal appearance
+            anime({
+                targets: '.modal-content',
+                scale: [0.8, 1],
+                opacity: [0, 1],
+                duration: 300,
+                easing: 'easeOutBack'
+            });
+        }
+
+        function closeClassModal() {
+            const modal = document.getElementById('class-modal');
+            anime({
+                targets: '.modal-content',
+                scale: [1, 0.8],
+                opacity: [1, 0],
+                duration: 200,
+                easing: 'easeInBack',
+                complete: () => {
+                    modal.classList.remove('show');
+                }
+            });
+        }
+
+        function bookClass(classId) {
+            closeClassModal();
+            // Simulate booking process
+            setTimeout(() => {
+                alert('Class booked successfully! You will receive a confirmation email shortly.');
+            }, 300);
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('class-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeClassModal();
+            }
+        });
+    </script>
+    <script src="main.js"></script>
+</body>
+</html>

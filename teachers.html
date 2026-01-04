@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Teachers - KNZ Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'navy': '#1a365d',
+                        'coral': '#ff6b6b',
+                        'sage': '#68d391',
+                        'neutral': '#f7fafc',
+                        'charcoal': '#2d3748'
+                    },
+                    fontFamily: {
+                        'display': ['Playfair Display', 'serif'],
+                        'body': ['Inter', 'sans-serif'],
+                        'accent': ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        .teacher-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .teacher-modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            max-width: 800px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body class="font-body bg-neutral text-charcoal">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-md z-50 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <img src="resources/logo-knz.png" alt="KNZ Academy" class="h-10 w-auto">
+                    <span class="font-display text-xl font-bold text-navy">KNZ Academy</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-charcoal hover:text-coral transition-colors">Home</a>
+                    <a href="classes.html" class="text-navy font-medium border-b-2 border-coral pb-1">Classes</a>
+                    <a href="teachers.html" class="text-charcoal hover:text-coral transition-colors">Teachers</a>
+                    <a href="about.html" class="text-charcoal hover:text-coral transition-colors">About</a>
+                </div>
+                <button class="bg-coral text-white px-6 py-2 rounded-full font-accent font-medium hover:bg-red-500 transition-colors">
+                    Contact Us
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-navy to-blue-900 text-white pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="font-display text-5xl font-bold mb-6">Meet Our Expert Teachers</h1>
+                <p class="text-xl text-blue-100 max-w-3xl mx-auto">
+                    Our faculty consists of passionate educators with advanced degrees and years of experience. 
+                    They're dedicated to helping every student reach their full potential through personalized instruction.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Teachers Grid -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Teacher 1: Ms. Sarah Johnson -->
+                <div class="card-hover bg-white rounded-xl shadow-lg overflow-hidden">
+                    <img src="resources/teacher-1.jpg" alt="Ms. Sarah Johnson" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-display text-xl font-semibold text-navy mb-2">Ms. Sarah Johnson</h3>
+                        <p class="text-coral font-medium mb-3">Mathematics Department Head</p>
+                        <div class="flex items-center space-x-2 mb-3">
+                            <span class="text-xs bg-coral/10 text-coral px-2 py-1 rounded">Algebra</span>
+                            <span class="text-xs bg-coral/10 text-coral px-2 py-1 rounded">Calculus</span>
+                            <span class="text-xs bg-coral/10 text-coral px-2 py-1 rounded">Geometry</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">
+                            M.Ed. in Mathematics Education from Stanford University. 8+ years of teaching experience with a passion for making complex concepts accessible.
+                        </p>
+                        <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                            <span>📚 200+ Students Taught</span>
+                            <span>⭐ 4.9/5 Rating</span>
+                        </div>
+                        <button class="w-full bg-coral text-white py-2 rounded-lg font-accent font-medium hover:bg-red-500 transition-colors" onclick="openTeacherModal('sarah-johnson')">
+                            View Full Profile
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Teacher 2: Dr. Michael Chen -->
+                <div class="card-hover bg-white rounded-xl shadow-lg overflow-hidden">
+                    <img src="resources/teacher-2.jpg" alt="Dr. Michael Chen" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-display text-xl font-semibold text-navy mb-2">Dr. Michael Chen</h3>
+                        <p class="text-sage font-medium mb-3">Science Department Head</p>
+                        <div class="flex items-center space-x-2 mb-3">
+                            <span class="text-xs bg-sage/10 text-sage px-2 py-1 rounded">Chemistry</span>
+                            <span class="text-xs bg-sage/10 text-sage px-2 py-1 rounded">Physics</span>
+                            <span class="text-xs bg-sage/10 text-sage px-2 py-1 rounded">Biology</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">
+                            Ph.D. in Chemistry from MIT. 12+ years experience including research at leading pharmaceutical companies.
+                        </p>
+                        <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                            <span>🔬 15 Research Papers</span>
+                            <span>⭐ 4.8/5 Rating</span>
+                        </div>
+                        <button class="w-full bg-coral text-white py-2 rounded-lg font-accent font-medium hover:bg-red-500 transition-colors" onclick="openTeacherModal('michael-chen')">
+                            View Full Profile
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Teacher 3: Ms. Emily Rodriguez -->
+                <div class="card-hover bg-white rounded-xl shadow-lg overflow-hidden">
+                    <img src="resources/teacher-3.jpg" alt="Ms. Emily Rodriguez" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-display text-xl font-semibold text-navy mb-2">Ms. Emily Rodriguez</h3>
+                        <p class="text-navy font-medium mb-3">English Literature Specialist</p>
+                        <div class="flex items-center space-x-2 mb-3">
+                            <span class="text-xs bg-navy/10 text-navy px-2 py-1 rounded">Writing</span>
+                            <span class="text-xs bg-navy/10 text-navy px-2 py-1 rounded">Literature</span>
+                            <span class="text-xs bg-navy/10 text-navy px-2 py-1 rounded">Grammar</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">
+                            M.A. in English Literature from Harvard University. Published author with expertise in developing strong writing skills.
+                        </p>
+                        <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                            <span>📖 3 Published Books</span>
+                            <span>⭐ 4.9/5 Rating</span>
+                        </div>
+                        <button class="w-full bg-coral text-white py-2 rounded-lg font-accent font-medium hover:bg-red-500 transition-colors" onclick="openTeacherModal('emily-rodriguez')">
+                            View Full Profile
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Teacher 4: Ms. Alex Thompson -->
+                <div class="card-hover bg-white rounded-xl shadow-lg overflow-hidden">
+                    <img src="resources/teacher-4.jpg" alt="Ms. Alex Thompson" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-display text-xl font-semibold text-navy mb-2">Ms. Alex Thompson</h3>
+                        <p class="text-coral font-medium mb-3">Computer Science Lead</p>
+                        <div class="flex items-center space-x-2 mb-3">
+                            <span class="text-xs bg-coral/10 text-coral px-2 py-1 rounded">Python</span>
+                            <span class="text-xs bg-coral/10 text-coral px-2 py-1 rounded">JavaScript</span>
+                            <span class="text-xs bg-coral/10 text-coral px-2 py-1 rounded">Web Dev</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">
+                            B.S. in Computer Science from Carnegie Mellon. 5+ years industry experience at leading tech companies.
+                        </p>
+                        <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                            <span>💻 10+ Projects</span>
+                            <span>⭐ 4.7/5 Rating</span>
+                        </div>
+                        <button class="w-full bg-coral text-white py-2 rounded-lg font-accent font-medium hover:bg-red-500 transition-colors" onclick="openTeacherModal('alex-thompson')">
+                            View Full Profile
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Additional Teachers -->
+                <div class="card-hover bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="w-full h-64 bg-gradient-to-br from-coral to-orange-400 flex items-center justify-center">
+                        <span class="text-6xl text-white">👩‍🏫</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display text-xl font-semibold text-navy mb-2">Ms. Jennifer Park</h3>
+                        <p class="text-sage font-medium mb-3">Biology Specialist</p>
+                        <div class="flex items-center space-x-2 mb-3">
+                            <span class="text-xs bg-sage/10 text-sage px-2 py-1 rounded">Biology</span>
+                            <span class="text-xs bg-sage/10 text-sage px-2 py-1 rounded">AP Biology</span>
+                            <span class="text-xs bg-sage/10 text-sage px-2 py-1 rounded">Environmental Science</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">
+                            M.S. in Molecular Biology from UC Berkeley. Expert in making complex biological concepts engaging and understandable.
+                        </p>
+                        <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                            <span>🧬 8 Years Experience</span>
+                            <span>⭐ 4.8/5 Rating</span>
+                        </div>
+                        <button class="w-full bg-coral text-white py-2 rounded-lg font-accent font-medium hover:bg-red-500 transition-colors" onclick="openTeacherModal('jennifer-park')">
+                            View Full Profile
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card-hover bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="w-full h-64 bg-gradient-to-br from-navy to-blue-400 flex items-center justify-center">
+                        <span class="text-6xl text-white">👨‍🏫</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display text-xl font-semibold text-navy mb-2">Mr. Robert Kim</h3>
+                        <p class="text-navy font-medium mb-3">Physics & Engineering</p>
+                        <div class="flex items-center space-x-2 mb-3">
+                            <span class="text-xs bg-navy/10 text-navy px-2 py-1 rounded">Physics</span>
+                            <span class="text-xs bg-navy/10 text-navy px-2 py-1 rounded">Engineering</span>
+                            <span class="text-xs bg-navy/10 text-navy px-2 py-1 rounded">Robotics</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">
+                            M.S. in Mechanical Engineering from Caltech. Former aerospace engineer with passion for hands-on learning.
+                        </p>
+                        <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                            <span>⚙️ 15 Years Experience</span>
+                            <span>⭐ 4.9/5 Rating</span>
+                        </div>
+                        <button class="w-full bg-coral text-white py-2 rounded-lg font-accent font-medium hover:bg-red-500 transition-colors" onclick="openTeacherModal('robert-kim')">
+                            View Full Profile
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card-hover bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="w-full h-64 bg-gradient-to-br from-sage to-green-400 flex items-center justify-center">
+                        <span class="text-6xl text-white">👩‍🏫</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display text-xl font-semibold text-navy mb-2">Ms. Lisa Wang</h3>
+                        <p class="text-sage font-medium mb-3">History & Social Studies</p>
+                        <div class="flex items-center space-x-2 mb-3">
+                            <span class="text-xs bg-sage/10 text-sage px-2 py-1 rounded">World History</span>
+                            <span class="text-xs bg-sage/10 text-sage px-2 py-1 rounded">US History</span>
+                            <span class="text-xs bg-sage/10 text-sage px-2 py-1 rounded">Government</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">
+                            Ph.D. in History from Yale University. Expert in making history relevant and engaging through storytelling and primary sources.
+                        </p>
+                        <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                            <span>📜 11 Years Experience</span>
+                            <span>⭐ 4.8/5 Rating</span>
+                        </div>
+                        <button class="w-full bg-coral text-white py-2 rounded-lg font-accent font-medium hover:bg-red-500 transition-colors" onclick="openTeacherModal('lisa-wang')">
+                            View Full Profile
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Teaching Philosophy -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl font-bold text-navy mb-4">Our Teaching Philosophy</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Every teacher at KNZ Academy shares our commitment to personalized education, 
+                    academic excellence, and student success.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center p-8 bg-white rounded-xl shadow-lg">
+                    <div class="w-16 h-16 bg-coral/10 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-coral" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-xl font-semibold text-navy mb-3">Individual Attention</h3>
+                    <p class="text-gray-600">
+                        Our teachers provide one-on-one support, adapting their teaching style to match each student's learning preferences and pace.
+                    </p>
+                </div>
+                
+                <div class="text-center p-8 bg-white rounded-xl shadow-lg">
+                    <div class="w-16 h-16 bg-sage/10 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-xl font-semibold text-navy mb-3">Innovation & Excellence</h3>
+                    <p class="text-gray-600">
+                        We combine proven teaching methods with innovative approaches to create engaging and effective learning experiences.
+                    </p>
+                </div>
+                
+                <div class="text-center p-8 bg-white rounded-xl shadow-lg">
+                    <div class="w-16 h-16 bg-navy/10 rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-xl font-semibold text-navy mb-3">Continuous Growth</h3>
+                    <p class="text-gray-600">
+                        Our teachers are lifelong learners, constantly updating their skills and knowledge to provide the best education possible.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Teacher Statistics -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl font-bold text-navy mb-4">Teaching Excellence by the Numbers</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-coral mb-2">50+</div>
+                    <div class="text-gray-600">Expert Teachers</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-sage mb-2">15+</div>
+                    <div class="text-gray-600">Average Years Experience</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-navy mb-2">98%</div>
+                    <div class="text-gray-600">Student Satisfaction Rate</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-coral mb-2">25+</div>
+                    <div class="text-gray-600">Advanced Degrees</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Teacher Modal -->
+    <div id="teacher-modal" class="teacher-modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="teacher-modal-title" class="font-display text-2xl font-bold text-navy"></h2>
+                <button onclick="closeTeacherModal()" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div id="teacher-modal-content">
+                <!-- Content will be dynamically loaded -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-navy text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="col-span-2">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <img src="resources/logo-knz.png" alt="KNZ Academy" class="h-10 w-auto">
+                        <span class="font-display text-xl font-bold">KNZ Academy</span>
+                    </div>
+                    <p class="text-gray-300 mb-4">Empowering students to reach their full potential through personalized education and expert guidance.</p>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="index.html" class="hover:text-coral transition-colors">Home</a></li>
+                        <li><a href="classes.html" class="hover:text-coral transition-colors">Classes</a></li>
+                        <li><a href="teachers.html" class="hover:text-coral transition-colors">Our Teachers</a></li>
+                        <li><a href="about.html" class="hover:text-coral transition-colors">About Us</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-4">Contact Info</h3>
+                    <div class="space-y-2 text-gray-300">
+                        <div>📧 info@knzacademy.com</div>
+                        <div>📞 (555) 123-4567</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                <p>&copy; 2024 KNZ Academy. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Teacher modal functionality
+        function openTeacherModal(teacherId) {
+            const modal = document.getElementById('teacher-modal');
+            const modalTitle = document.getElementById('teacher-modal-title');
+            const modalContent = document.getElementById('teacher-modal-content');
+
+            const teacherData = {
+                'sarah-johnson': {
+                    name: 'Ms. Sarah Johnson',
+                    title: 'Mathematics Department Head',
+                    image: 'resources/teacher-1.jpg',
+                    education: 'M.Ed. in Mathematics Education, Stanford University',
+                    experience: '8+ years of teaching experience',
+                    specialties: ['Algebra I & II', 'Calculus', 'Geometry', 'Statistics'],
+                    achievements: [
+                        'Developed innovative algebra curriculum adopted by 5 schools',
+                        '95% of students show grade improvement within 3 months',
+                        'Teacher of the Year Award 2022',
+                        'Published researcher in mathematics education'
+                    ],
+                    philosophy: 'I believe every student can excel in mathematics with the right approach. My goal is to make complex concepts accessible and show students the beauty and logic in math.',
+                    hobbies: 'Hiking, painting, and playing the piano'
+                },
+                'michael-chen': {
+                    name: 'Dr. Michael Chen',
+                    title: 'Science Department Head',
+                    image: 'resources/teacher-2.jpg',
+                    education: 'Ph.D. in Chemistry, MIT',
+                    experience: '12+ years including research at leading pharmaceutical companies',
+                    specialties: ['Chemistry', 'Physics', 'Biology', 'AP Science Courses'],
+                    achievements: [
+                        '15 published research papers in peer-reviewed journals',
+                        'Secured $2M in research funding',
+                        'Mentored 3 students to International Science Fair',
+                        'Former lead scientist at BioTech Innovations'
+                    ],
+                    philosophy: 'Science is not just about memorizing facts - it\'s about understanding how the world works and developing critical thinking skills that last a lifetime.',
+                    hobbies: 'Amateur astronomy, brewing coffee, and marathon running'
+                },
+                'emily-rodriguez': {
+                    name: 'Ms. Emily Rodriguez',
+                    title: 'English Literature Specialist',
+                    image: 'resources/teacher-3.jpg',
+                    education: 'M.A. in English Literature, Harvard University',
+                    experience: '6+ years of teaching and writing experience',
+                    specialties: ['Creative Writing', 'Literature Analysis', 'Grammar', 'SAT Prep'],
+                    achievements: [
+                        'Published 3 young adult novels',
+                        'Winner of the National Teaching Excellence Award',
+                        'Developed innovative writing curriculum',
+                        '98% of students improve writing scores by 2+ grade levels'
+                    ],
+                    philosophy: 'Writing is thinking made visible. I help students find their unique voice while mastering the technical skills needed for academic and professional success.',
+                    hobbies: 'Creative writing, book club, and traveling'
+                },
+                'alex-thompson': {
+                    name: 'Ms. Alex Thompson',
+                    title: 'Computer Science Lead',
+                    image: 'resources/teacher-4.jpg',
+                    education: 'B.S. in Computer Science, Carnegie Mellon University',
+                    experience: '5+ years industry experience at leading tech companies',
+                    specialties: ['Python', 'JavaScript', 'Web Development', 'Algorithms'],
+                    achievements: [
+                        'Led development of 3 major software projects',
+                        'Google Code-in Mentor 2021-2023',
+                        'Developed coding curriculum for K-12 students',
+                        '90% of students build functional apps within 6 months'
+                    ],
+                    philosophy: 'Coding is the literacy of the 21st century. I make programming accessible and fun, showing students how to build real projects that solve real problems.',
+                    hobbies: 'Open source contributions, rock climbing, and video game development'
+                }
+            };
+
+            const data = teacherData[teacherId] || teacherData['sarah-johnson'];
+            
+            modalTitle.textContent = data.name;
+            modalContent.innerHTML = `
+                <div class="grid md:grid-cols-3 gap-6 mb-6">
+                    <div class="md:col-span-1">
+                        <img src="${data.image}" alt="${data.name}" class="w-full h-64 object-cover rounded-lg">
+                    </div>
+                    <div class="md:col-span-2">
+                        <h3 class="text-xl font-semibold text-coral mb-2">${data.title}</h3>
+                        <p class="text-gray-600 mb-2"><strong>Education:</strong> ${data.education}</p>
+                        <p class="text-gray-600 mb-4"><strong>Experience:</strong> ${data.experience}</p>
+                        
+                        <h4 class="font-semibold text-navy mb-2">Specialties</h4>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            ${data.specialties.map(specialty => `<span class="text-xs bg-coral/10 text-coral px-2 py-1 rounded">${specialty}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="space-y-6">
+                    <div>
+                        <h4 class="font-semibold text-navy mb-3">Key Achievements</h4>
+                        <ul class="space-y-2">
+                            ${data.achievements.map(achievement => `<li class="flex items-start"><span class="text-sage mr-2 mt-1">•</span><span class="text-gray-600">${achievement}</span></li>`).join('')}
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-semibold text-navy mb-2">Teaching Philosophy</h4>
+                        <p class="text-gray-600 italic">"${data.philosophy}"</p>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-semibold text-navy mb-2">Personal Interests</h4>
+                        <p class="text-gray-600">${data.hobbies}</p>
+                    </div>
+                    
+                    <div class="flex space-x-4 pt-4">
+                        <button class="flex-1 bg-coral text-white py-3 rounded-lg font-accent font-medium hover:bg-red-500 transition-colors" onclick="scheduleConsultation('${data.name}')">
+                            Schedule Consultation
+                        </button>
+                        <button class="flex-1 border-2 border-navy text-navy py-3 rounded-lg font-accent font-medium hover:bg-navy hover:text-white transition-colors" onclick="closeTeacherModal()">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            modal.classList.add('show');
+            
+            // Animate modal appearance
+            anime({
+                targets: '.modal-content',
+                scale: [0.8, 1],
+                opacity: [0, 1],
+                duration: 300,
+                easing: 'easeOutBack'
+            });
+        }
+
+        function closeTeacherModal() {
+            const modal = document.getElementById('teacher-modal');
+            anime({
+                targets: '.modal-content',
+                scale: [1, 0.8],
+                opacity: [1, 0],
+                duration: 200,
+                easing: 'easeInBack',
+                complete: () => {
+                    modal.classList.remove('show');
+                }
+            });
+        }
+
+        function scheduleConsultation(teacherName) {
+            closeTeacherModal();
+            setTimeout(() => {
+                alert(`Consultation request sent for ${teacherName}! We will contact you within 24 hours to schedule your session.`);
+            }, 300);
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('teacher-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeTeacherModal();
+            }
+        });
+
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate teacher cards on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        anime({
+                            targets: entry.target,
+                            translateY: [50, 0],
+                            opacity: [0, 1],
+                            duration: 800,
+                            delay: Math.random() * 200,
+                            easing: 'easeOutExpo'
+                        });
+                        observer.unobserve(entry.target);
+                    }
+                });
+            });
+
+            document.querySelectorAll('.card-hover').forEach(card => {
+                observer.observe(card);
+            });
+        });
+    </script>
+    <script src="main.js"></script>
+</body>
+</html>
