@@ -31,8 +31,9 @@ function initializeTypewriter() {
 function initializeCounters() {
     const counters = [
         { id: 'students-count', target: 2500, suffix: '+' },
-        { id: 'success-rate', target: 95, suffix: '%' },
-        { id: 'teachers-count', target: 50, suffix: '+' }
+        { id: 'success-rate', target: 99, suffix: '%' },
+        { id: 'experience', target: 25, suffix: '+' },
+        { id: 'teachers-count', target: 8, suffix: '+' }
     ];
 
     counters.forEach(counter => {
