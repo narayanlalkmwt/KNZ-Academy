@@ -68,22 +68,89 @@
     <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-md z-50 border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
                 <div class="flex items-center space-x-3">
                     <img src="resources/logo-knz.png" alt="KNZ Academy" class="h-10 w-auto">
                     <span class="font-display text-xl font-bold text-navy">KNZ Academy</span>
                 </div>
+                <!-- Desktop Menu -->
                 <div class="hidden md:flex space-x-8">
-                    <a href="index.html" class="text-charcoal hover:text-coral transition-colors">Home</a>
-                    <a href="classes.html" class="text-navy font-medium border-b-2 border-coral pb-1">Classes</a>
+                    <a href="index.html" class="text-navy font-medium border-b-2 border-coral pb-1">Home</a>
+                    <a href="classes.html" class="text-charcoal hover:text-coral transition-colors">Classes</a>
                     <a href="teachers.html" class="text-charcoal hover:text-coral transition-colors">Teachers</a>
                     <a href="about.html" class="text-charcoal hover:text-coral transition-colors">About</a>
                 </div>
-                <button class="bg-coral text-white px-6 py-2 rounded-full font-accent font-medium hover:bg-red-500 transition-colors">
-                    Contact Us
+                <!-- Desktop Enquiry Button -->
+                <div class="hidden md:block">
+                    <a href="tel:+91XXXXXXXXXX"
+                    class="bg-coral text-white px-6 py-2 rounded-full font-accent font-medium hover:bg-red-500 transition-colors inline-block">
+                        Enquiry Now
+                    </a>
+                </div>
+                <!-- Mobile Hamburger -->
+                <button id="menuBtn" class="md:hidden text-navy focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
                 </button>
             </div>
         </div>
     </nav>
+
+    <!-- Mobile Side Panel -->
+    <div id="mobileMenu" class="fixed inset-0 z-50 hidden">
+        <!-- Overlay -->
+        <div id="overlay" class="absolute inset-0 bg-black/40"></div>
+        <!-- Panel -->
+        <div class="absolute right-0 top-0 h-full w-72 bg-white shadow-2xl p-6 transform translate-x-full transition-transform duration-300">
+            <!-- Panel Header -->
+            <div class="flex justify-between items-center mb-8">
+                <span class="font-display text-xl font-bold text-navy">KNZ Academy</span>
+                <button id="closeBtn" class="text-2xl text-charcoal leading-none">
+                    &times;
+                </button>
+            </div>
+            <!-- Panel Links -->
+            <nav class="flex flex-col space-y-6 text-lg">
+                <a href="index.html" class="text-navy font-medium">Home</a>
+                <a href="classes.html" class="hover:text-coral">Classes</a>
+                <a href="teachers.html" class="hover:text-coral">Teachers</a>
+                <a href="about.html" class="hover:text-coral">About</a>
+            </nav>
+            <!-- Mobile Enquiry Button -->
+            <a href="tel:+91XXXXXXXXXX"
+            class="mt-10 w-full bg-coral text-white py-3 rounded-full font-accent font-medium hover:bg-red-500 transition-colors text-center block">
+                Enquiry Now
+            </a>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const sidePanel = mobileMenu.querySelector('div:last-child');
+        const closeBtn = document.getElementById('closeBtn');
+        const overlay = document.getElementById('overlay');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('hidden');
+            setTimeout(() => {
+                sidePanel.classList.remove('translate-x-full');
+            }, 10);
+        });
+        function closeMenu() {
+            sidePanel.classList.add('translate-x-full');
+            setTimeout(() => {
+                mobileMenu.classList.add('hidden');
+            }, 300);
+        }
+        closeBtn.addEventListener('click', closeMenu);
+        overlay.addEventListener('click', closeMenu);
+    </script>
+
 
     <!-- Hero Section -->
     <section class="bg-gradient-to-br from-navy to-blue-900 text-white pt-24 pb-16">
